@@ -1,0 +1,26 @@
+{
+  "name": "react-xin-todo",
+  "version": "1.0.0",
+  "description": "this is a demo for to do list in react and bundle",
+  "main": "index.js",
+  "scripts": {
+    "start": "watchify js/app.js -o lib/app.js"
+  },
+  "author": "Xin zhang",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
+    "browserify": "^13.0.0",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "flux": "^2.1.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "underscore": "^1.7.0"
+  },
+"browserify": {
+    "transform": [["babelify", { "presets": ["react"] }]]
+  }  
+}
