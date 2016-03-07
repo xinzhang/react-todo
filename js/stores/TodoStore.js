@@ -62,6 +62,11 @@ TodoStore.create = function(content) {
     this.emitChange();   
 }
 
+TodoStore.remove = function(content) {
+    
+    this.emitChange();
+}
+
 TodoDispatcher.register(function(action){
     console.log(action.type);
     console.log(TodoConstants.update);
@@ -75,6 +80,11 @@ TodoDispatcher.register(function(action){
         case TodoConstants.create: {
             console.log('dispatcher triggered');
             TodoStore.create(action.content);
+            break;
+        }
+        case TodoConstants.remove: {
+            console.log('dispatcher remove');
+            TodoStore.remove(action.content);
             break;
         }
     }
