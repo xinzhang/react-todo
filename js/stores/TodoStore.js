@@ -28,7 +28,12 @@ var todoList = [
         "id": 5,
         "name": "Oil change",
         "isComplete": true
-    }
+    },
+    {
+        "id": 6,
+        "name": "Oil change - 2",
+        "isComplete": false
+    }    
 ];
 
 
