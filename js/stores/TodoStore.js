@@ -4,7 +4,7 @@ var TodoConstants = require('../constants/TodoConstants');
 var _ = require('underscore');
 window.jQuery = window.$ =  require("jquery");
 
-var todoList = [
+var todoListDummyData = [
     {
         "id": 1,
         "name": "Pick up milk",
@@ -32,6 +32,7 @@ var todoList = [
     }    
 ];
 
+var todoList = [];
 
 var TodoStore = new EventEmitter();
 
@@ -44,6 +45,28 @@ TodoStore.addChangeListener = function(listener) {
 };
 
 TodoStore.getTodos = function() {
+    
+    $.when(
+        $.ajax({
+        url: '/todo',
+        type: 'GET'
+        })
+    )
+    .done(function(data){
+
+        _.map(data, function(x){
+
+            todoList.push({
+                "id" : x.id,
+                "name" : x.name,
+                "isComplete": x.isComplete
+            })
+        });
+
+        console.log('emit change after this is updated');   
+        TodoStore.emitChange();     
+    })
+
     return todoList;
 };
 

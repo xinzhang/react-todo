@@ -8,7 +8,8 @@ var TodoActions = require('../actions/TodoActions');
 
 var Todo = React.createClass({
 
-	getInitialState: function() {                   
+	getInitialState: function() {
+
         return {
             todos: ts.getTodos()
         }  

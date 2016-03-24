@@ -16,8 +16,20 @@ app.get('/', function(req, res){
 	res.sendFile(__dirname + "/index.html");
 });
 
-app.post('/todo', function(req, resp){
-	
+app.get('/todo', function(req, resp){
+	Todo.find(function (err, todoList) {
+		if (err) {
+			console.log(err);
+			resp.end();
+		};
+
+		resp.json( todoList );
+		resp.end();
+	});
+
+})
+
+app.post('/todo', function(req, resp){	
 	var todo1 = new Todo(req.body);
 
 	todo1.save(function (err) {
@@ -27,6 +39,8 @@ app.post('/todo', function(req, resp){
 
 	console.log('completed in serverside');
 });
+
+
 
 app.listen(4200, function() {
 	console.log('start listening port 4200');
