@@ -30,17 +30,22 @@ app.get('/api/todo', function(req, resp){
 })
 
 app.post('/api/todo', function(req, resp){	
+
+	console.log(req.body);
+
 	var todo1 = new Todo(req.body);
 
 	todo1.save(function (err) {
-		if (err) throw err;
+		if (err) {
+			console.log(err.message);
+			resp.status(500).send(err.message);
+		}
+
 		console.log('todo1 saved.');
 	});
-
-	console.log('completed in serverside');
+	
+	resp.status(200).end();
 });
-
-
 
 app.listen(4200, function() {
 	console.log('start listening port 4200');

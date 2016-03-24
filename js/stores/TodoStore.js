@@ -59,10 +59,11 @@ TodoStore.getTodos = function() {
                 })
             });
 
-            console.log('emit change after this is updated');   
-            TodoStore.emitChange();     
+            //TodoStore.emitChange();     
+            //return todoList;
         })
     }
+    
     return todoList;
 };
 
@@ -74,21 +75,18 @@ TodoStore.update = function(content) {
     this.emitChange();
 };
 
-TodoStore.create = function(content) {
+TodoStore.create = function(content) {    
     content.id = _.max(todoList,function(x) { return x.id; }).id + 1;
-    console.log('get max id' + content.id);
 
-    todoService.addTodo(content, function((data, jqXHR) {
-        console.log('todo added. returned to TodoStore');
-        todoList.push(content);  
-        this.emitChange();
-    });
+    if (isNaN(content.id))
+        content.id = 1;
 
-    //$.post('/todo', content, function(data){
-    //    
-    //})
-
-    //this.emitChange();   
+    todoService.addTodo(content)
+        .then(function(data) {
+            console.log('todo added. returned to TodoStore');
+            todoList.push(content);  
+            TodoStore.emitChange();
+        });
 }
 
 TodoStore.remove = function(content) {

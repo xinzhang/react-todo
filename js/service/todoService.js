@@ -5,7 +5,7 @@ var promise = require("es6-promise");
 var resourceUrl = '/api/todo';
 
 module.exports = {
-	addTodo: function (todo, cb) {
+	addTodo: function (todo) {
         // var Promise = promise.Promise;
         // return new Promise(function (resolve, reject) {
         //     $.ajax({
@@ -18,16 +18,28 @@ module.exports = {
         //         error: reject
         //     });
         // });
+        
+        var d = $.Deferred();
 
-        //$.post(resourceUrl, todo, function() {
-        //    cb();
-        //});
         $.ajax({
             type: "POST",
             url: resourceUrl,
-            data: todo,
-            success: cb
-        });
+            data: todo
+        }).done( function(data) {
+            console.log('resolve completed');
+            d.resolve(data);
+        }).fail (function (err) {
+            d.reject(data);
+        })
+        
+        return d.promise();
+
+         // return $.ajax({
+         //     type: "POST",
+         //     url: resourceUrl,
+         //     data: todo
+         // })
+
     },
 
     getTodos: function () {        
