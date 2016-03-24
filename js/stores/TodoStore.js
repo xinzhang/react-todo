@@ -2,7 +2,8 @@ var EventEmitter = require('events').EventEmitter;
 var TodoDispatcher = require('../dispatcher/TodoDispatcher');
 var TodoConstants = require('../constants/TodoConstants');
 var _ = require('underscore');
-window.jQuery = window.$ =  require("jquery");
+
+var todoService = require('../service/todoService.js');
 
 var todoListDummyData = [
     {
@@ -45,28 +46,23 @@ TodoStore.addChangeListener = function(listener) {
 };
 
 TodoStore.getTodos = function() {
-    
-    $.when(
-        $.ajax({
-        url: '/todo',
-        type: 'GET'
+    if (todoList.length == 0)
+    {
+        todoService.getTodos().done(function(data){
+
+            _.map(data, function(x){
+
+                todoList.push({
+                    "id" : x.id,
+                    "name" : x.name,
+                    "isComplete": x.isComplete
+                })
+            });
+
+            console.log('emit change after this is updated');   
+            TodoStore.emitChange();     
         })
-    )
-    .done(function(data){
-
-        _.map(data, function(x){
-
-            todoList.push({
-                "id" : x.id,
-                "name" : x.name,
-                "isComplete": x.isComplete
-            })
-        });
-
-        console.log('emit change after this is updated');   
-        TodoStore.emitChange();     
-    })
-
+    }
     return todoList;
 };
 
@@ -82,13 +78,17 @@ TodoStore.create = function(content) {
     content.id = _.max(todoList,function(x) { return x.id; }).id + 1;
     console.log('get max id' + content.id);
 
-    $.post('/todo', content, function(data){
+    todoService.addTodo(content, function((data, jqXHR) {
         console.log('todo added. returned to TodoStore');
-    })
+        todoList.push(content);  
+        this.emitChange();
+    });
 
-    todoList.push(content);
-    
-    this.emitChange();   
+    //$.post('/todo', content, function(data){
+    //    
+    //})
+
+    //this.emitChange();   
 }
 
 TodoStore.remove = function(content) {

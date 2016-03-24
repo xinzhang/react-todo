@@ -4,10 +4,10 @@
   "description": "this is a demo for to do list in react and bundle",
   "main": "index.js",
   "scripts": {
-    "start": "watchify js/app.js -o lib/app.js",
+    "watch": "watchify js/app.js -o lib/app.js",
     "build": "browserify js/app.js -o lib/app.js",
-    "start-express": "node server.js",
-    "server": "npm run build && npm run start-express"
+    "express": "node server.js",
+    "start": "npm run build && npm run express"
   },
   "author": "Xin zhang",
   "license": "ISC",

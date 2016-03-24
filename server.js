@@ -16,7 +16,7 @@ app.get('/', function(req, res){
 	res.sendFile(__dirname + "/index.html");
 });
 
-app.get('/todo', function(req, resp){
+app.get('/api/todo', function(req, resp){
 	Todo.find(function (err, todoList) {
 		if (err) {
 			console.log(err);
@@ -29,7 +29,7 @@ app.get('/todo', function(req, resp){
 
 })
 
-app.post('/todo', function(req, resp){	
+app.post('/api/todo', function(req, resp){	
 	var todo1 = new Todo(req.body);
 
 	todo1.save(function (err) {
