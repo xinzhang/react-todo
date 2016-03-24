@@ -2,6 +2,7 @@ var EventEmitter = require('events').EventEmitter;
 var TodoDispatcher = require('../dispatcher/TodoDispatcher');
 var TodoConstants = require('../constants/TodoConstants');
 var _ = require('underscore');
+window.jQuery = window.$ =  require("jquery");
 
 var todoList = [
     {
@@ -27,11 +28,6 @@ var todoList = [
     {
         "id": 5,
         "name": "Oil change",
-        "isComplete": true
-    },
-    {
-        "id": 6,
-        "name": "Oil change - 2",
         "isComplete": false
     }    
 ];
@@ -62,6 +58,11 @@ TodoStore.update = function(content) {
 TodoStore.create = function(content) {
     content.id = _.max(todoList,function(x) { return x.id; }).id + 1;
     console.log('get max id' + content.id);
+
+    $.post('/todo', content, function(data){
+        console.log('todo added. returned to TodoStore');
+    })
+
     todoList.push(content);
     
     this.emitChange();   
