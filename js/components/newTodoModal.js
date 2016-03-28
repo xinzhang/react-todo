@@ -53,11 +53,11 @@ var NewTodoModal = React.createClass({
 				               	</button>
 				                <h4 className="modal-title">New Task</h4>
 				            </div>
-				            <div class="modal-body">
+				            <div className="modal-body">
 				            	<input placeholder="Task name..." type="text" value={this.state.value} onChange={this.onChange} />                
 				            </div>
 				            
-				            <div class="modal-footer">
+				            <div className="modal-footer">
 				                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.save}>Save</button>
 				                <button type="button" className="btn btn-default" data-dismiss="modal" >Close</button>
 				            </div>
