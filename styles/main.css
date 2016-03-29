@@ -1,0 +1,24 @@
+/* Put your css in here */
+
+li {
+    width: 200px;
+    list-style-type: none;
+    padding: 6px 10px;
+}
+li:hover {
+    background: #EEE;
+}
+
+.animate-show {
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+    opacity: 1;
+}
+
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+    display: inline-block !important;
+}
+.animate-show.ng-hide {
+    opacity: 0;
+}

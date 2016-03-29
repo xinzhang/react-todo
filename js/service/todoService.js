@@ -63,10 +63,20 @@ module.exports = {
 
     updateTodo: function(todo) {
         console.log(todo);
-        
+
         return $.ajax({
             url: resourceUrl,
             method: "PUT",
+            data: todo
+        })
+    },
+
+    removeTodo: function(todo) {
+        console.log(todo);
+        
+        return $.ajax({
+            url: resourceUrl,
+            method: "DELETE",
             data: todo
         })
     }

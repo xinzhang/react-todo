@@ -71,6 +71,30 @@ app.put('/api/todo', function(req, resp){
   	
 });
 
+app.delete('/api/todo', function(req, resp){
+	var id = new Todo(req.body);
+	console.log(id);
+
+	Todo.find({ id:id }).remove().exec();
+
+	// Todo.findOne({ 'id': id }, function (err, doc) {
+	// 	if (doc === undefined) {
+	// 		resp.status(404).send('can not find the doc.').end();			
+	// 	}
+		
+	// 	doc.remove( function(err){
+	// 		if (err) {
+	// 			console.log(err.message);
+	// 			resp.status(500).send(err.message);
+	// 		}
+	// 	});
+
+	// 	console.log('doc ' + todo1.id + ' deleted.');
+	// 	resp.status(200).end();
+ //  	});
+  	
+});
+
 app.listen(4200, function() {
 	console.log('start listening port 4200');
 });

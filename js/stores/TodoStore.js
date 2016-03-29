@@ -70,7 +70,7 @@ TodoStore.getTodos = function(forceUpdate) {
 
 TodoStore.update = function(content) {
     console.log("TodoStore update");
-    console.log(this.todoList);
+    console.log(todoList);
     // var found = _.find(this.todoList, function(x){return x.id == content.id;});
     
     // console.log(content);
@@ -101,12 +101,17 @@ TodoStore.create = function(content) {
 }
 
 TodoStore.remove = function(content) {    
-    this.emitChange();
+    console.log('todo store remove');
+    
+    todoService.removeTodo(content.id)
+        .then(function(data) {
+            todoList = _.filter(todoList, function(x){return x.id != content.id;});
+            TodoStore.emitChange();
+        });
 }
 
 TodoDispatcher.register(function(action){
     console.log(action.type);
-    console.log(TodoConstants.update);
 
     switch(action.type){
         case TodoConstants.update: {
