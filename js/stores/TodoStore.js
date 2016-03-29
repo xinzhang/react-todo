@@ -45,9 +45,9 @@ TodoStore.addChangeListener = function(listener) {
     this.on('change', listener);
 };
 
-TodoStore.getTodos = function() {
-    if (todoList.length == 0)
-    {
+TodoStore.getTodos = function(forceUpdate) {
+    if (forceUpdate) {
+        todoList = [];
         todoService.getTodos().done(function(data){
 
             _.map(data, function(x){
@@ -59,8 +59,9 @@ TodoStore.getTodos = function() {
                 })
             });
 
-            //TodoStore.emitChange();     
-            //return todoList;
+            initialLoadToDo = true;
+
+            TodoStore.emitChange();
         })
     }
     
@@ -68,11 +69,21 @@ TodoStore.getTodos = function() {
 };
 
 TodoStore.update = function(content) {
-    var found = _.find(this.todoList, function(x){return x.id == content.id;});
-    for (var name in found)
-        found[name] = content[name];
+    console.log("TodoStore update");
+    console.log(this.todoList);
+    // var found = _.find(this.todoList, function(x){return x.id == content.id;});
+    
+    // console.log(content);
+    // console.log(this.todoList);
 
-    this.emitChange();
+    // for (var name in found)
+    //     found[name] = content[name];
+    // console.log(this.todoList);
+
+     todoService.updateTodo(content).done(function(data) {
+     });
+
+    TodoStore.emitChange();
 };
 
 TodoStore.create = function(content) {    
@@ -89,8 +100,7 @@ TodoStore.create = function(content) {
         });
 }
 
-TodoStore.remove = function(content) {
-    
+TodoStore.remove = function(content) {    
     this.emitChange();
 }
 

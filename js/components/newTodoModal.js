@@ -40,6 +40,7 @@ var NewTodoModal = React.createClass({
 			"name": this.state.value,
 			isComplete:false
 		});
+		this.reset();
 	},
 
 	render: function() {

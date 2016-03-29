@@ -12,7 +12,7 @@ var Todo = React.createClass({
         console.log('get Initial state');
 
         return {
-            todos: ts.getTodos()
+            todos: ts.getTodos(true)
         }  
     },
 
@@ -43,7 +43,7 @@ var Todo = React.createClass({
                     <h2>Todo List</h2>                    
                 </div>
                 <div className="col-md-6 top25">
-                    <a onClick={this._onChange}> <i className="glyphicon glyphicon-refresh"></i> refresh </a>
+                    <a onClick={this._refresh}> <i className="glyphicon glyphicon-refresh"></i> refresh </a>
                 </div>
                 <div className="col-md-4 top25">
                     <button type="button" className="btn btn-primary pull-right" data-toggle="modal" data-target="#newTaskModal">New Task</button>                        
@@ -65,8 +65,12 @@ var Todo = React.createClass({
         </div>;
 	},
 
+    _refresh: function() {
+        this.setState({todos: ts.getTodos(true)});
+    },
+
     _onChange: function(){
-        this.setState({todos: ts.getTodos()})
+        this.setState({todos: ts.getTodos(false)});
         console.log('todo _conchange');
     }
 })

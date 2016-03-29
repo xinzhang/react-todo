@@ -59,6 +59,16 @@ module.exports = {
             method: "GET"
         });
         
+    },
+
+    updateTodo: function(todo) {
+        console.log(todo);
+        
+        return $.ajax({
+            url: resourceUrl,
+            method: "PUT",
+            data: todo
+        })
     }
 
 }
