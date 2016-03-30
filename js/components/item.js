@@ -26,10 +26,11 @@ var Item = React.createClass({
 		})
 	},
 
-	remove: function() {
+	remove: function(e) {
 		console.log('item remove');
 		TodoActions.remove(this.props.todo);
-		return false;
+		e.stopPropagation();
+		e.preventDefault();		
 	},
 
 	render: function() {

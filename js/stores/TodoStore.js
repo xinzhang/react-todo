@@ -103,7 +103,7 @@ TodoStore.create = function(content) {
 TodoStore.remove = function(content) {    
     console.log('todo store remove');
     
-    todoService.removeTodo(content.id)
+    todoService.removeTodo(content)
         .then(function(data) {
             todoList = _.filter(todoList, function(x){return x.id != content.id;});
             TodoStore.emitChange();
